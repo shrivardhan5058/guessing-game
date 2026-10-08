@@ -1,26 +1,31 @@
-import random
+"""Guessing Game: the computer guesses the number chosen by the player."""
 
-def guessing_game():
-    print("Welcome to the Guessing Game!")
-    print("I have chosen a number between 1 and 100.")
+def main():
+    print("Think of a whole number between 1 and 100.")
+    input("Press Enter when you are ready...")
 
-    secret_number = random.randint(1, 100)
-    attempts = 0
+    low = 1
+    high = 100
+    guesses = 0
 
-    while True:
-        try:
-            guess = int(input("Enter your guess: "))
-            attempts += 1
+    while low <= high:
+        guess = (low + high) // 2
+        guesses += 1
 
-            if guess < secret_number:
-                print("Too low! Try again.")
-            elif guess > secret_number:
-                print("Too high! Try again.")
-            else:
-                print(f"Correct! You guessed it in {attempts} attempts.")
-                break
-        except ValueError:
-            print("Invalid input. Please enter an integer.")
+        print(f"My guess is {guess}.")
+        response = input("Is it (h)igher, (l)ower, or (c)orrect? ").strip().lower()
+
+        if response == "c":
+            print(f"I guessed your number in {guesses} guesses!")
+            return
+        elif response == "h":
+            low = guess + 1
+        elif response == "l":
+            high = guess - 1
+        else:
+            print("Please enter h, l, or c.")
+
+    print("Your answers were inconsistent, so I could not determine the number.")
 
 if __name__ == "__main__":
-    guessing_game()
+    main()
